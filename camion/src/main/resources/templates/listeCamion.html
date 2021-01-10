@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="template">
+<link rel="stylesheet" type="text/css" href="webjars/bootstrap/4.3.1/css/bootstrap.min.css" />
+<head>
+<meta charset="utf-8">
+<title>Liste des Camions</title>
+</head>
+<body>
+<div layout:fragment="Mycontent">
+<div class="container mt-5">
+<div class="card">
+<div class="card-header">
+Liste des Camions
+</div>
+<div class="card-body">
+<table class="table table-striped">
+<tr>
+<th>ID camion</th><th>Model Camion</th><th>Prix camion</th><th>Date de fabrication</th><th>Suppression</th><th>Modification</th>
+
+</tr>
+<tr th:each="cm:${camion.content}">
+<td th:text="${cm.idCamion}"></td>
+<td th:text="${cm.modelCamion}"></td>
+<td th:text="${cm.prixCamion}"></td>
+<td th:text="${cm.dateFabrication}"></td>
+<td>
+<a class="btn btn-danger" onclick="return confirm('Etes-vous sûr ?')" th:href="@{supprimerCamion(id=${cm.idCamion},
+ page=${currentPage},size=${size})}">Supprimer</a>
+ <td><a class="btn btn-success" th:href="@{modifierCamion(id=${cm.idCamion})}">Editer</a></td>
+ 
+ </td>
+ 
+ </tr>
+</table>
+<ul class="nav nav-pills">
+<li th:each="page,status:${pages}">
+<a th:class="${status.index==currentPage?'btn btn-primary':'btn' }"
+th:href="@{ listeCamion(page=${status.index}, size=${size} ) }"
+th:text="${status.index }"></a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
